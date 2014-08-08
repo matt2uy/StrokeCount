@@ -4,8 +4,7 @@ static Window *window;
 static TextLayer *text_layer;
 int num_of_strokes[] = {0, 5, 5, 5, 5, 5, 5, 5, 5,    // there is no hole 0
                         5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5};
-int current_hole = 1;
-bool show_info = true;
+int current_hole = 0;
 
 /////// Stroke manipulation functions
 
@@ -57,7 +56,6 @@ static void select_long_click_handler(ClickRecognizerRef recognizer, void *conte
     static char body_text[50];
     snprintf(body_text, sizeof(body_text), "   Hole %u  Stroke: %u", current_hole, num_of_strokes[current_hole]);
     text_layer_set_text(text_layer, body_text);
-    //show_info = true;
   }
 }
 static void select_long_click_release_handler(ClickRecognizerRef recognizer, void *context) {
@@ -78,39 +76,19 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
     static char body_text[50];
     snprintf(body_text, sizeof(body_text), "You shot: %u", total_score);
     text_layer_set_text(text_layer, body_text);
-    show_info = true;
   }
   else if (current_hole == 19) {
     current_hole = 1;
     static char body_text[50];
     snprintf(body_text, sizeof(body_text), "   Hole %u  Stroke: %u", current_hole, num_of_strokes[current_hole]);
     text_layer_set_text(text_layer, body_text);
-    show_info = true;
   }
   else {
     current_hole++;
     static char body_text[50];
     snprintf(body_text, sizeof(body_text), "   Hole %u  Stroke: %u", current_hole, num_of_strokes[current_hole]);
     text_layer_set_text(text_layer, body_text);
-    show_info = true;
   }
-
-  
-  
-  
-  // show info
-  /*
-  if (show_info == true){
-    text_layer_set_text(text_layer, "Press Up/Down for Strokes, Select for Next hole");
-    show_info = false;
-  }
-  else {
-    static char body_text[50];
-  snprintf(body_text, sizeof(body_text), "Hole: %u | Stroke: %u", current_hole, num_of_strokes[current_hole]);
-    text_layer_set_text(text_layer, body_text);
-    show_info = true;
-  }
-  */
 }
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -118,7 +96,6 @@ static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
   static char body_text[50];
   snprintf(body_text, sizeof(body_text), "   Hole %u  Stroke: %u", current_hole, num_of_strokes[current_hole]);
   text_layer_set_text(text_layer, body_text);
-  show_info = true;
 }
 
 static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -127,7 +104,6 @@ static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
   static char body_text[50];
   snprintf(body_text, sizeof(body_text), "   Hole %u  Stroke: %u", current_hole, num_of_strokes[current_hole]);
   text_layer_set_text(text_layer, body_text);
-  show_info = true;
 }
 
 ///////////
