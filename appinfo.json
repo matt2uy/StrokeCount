@@ -4,12 +4,12 @@
         ""
     ],
     "companyName": "matt2uy@gmail.com",
-    "longName": "Counter0.1",
+    "longName": "StrokeCount",
     "projectType": "native",
     "resources": {
         "media": []
     },
-    "shortName": "Counter0.1",
+    "shortName": "StrokeCount",
     "uuid": "50950a07-f897-4a23-a961-27b974be83a8",
     "versionCode": 1,
     "versionLabel": "1.0",

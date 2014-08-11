@@ -2,8 +2,8 @@
 
 static Window *window;
 static TextLayer *text_layer;
-int num_of_strokes[] = {0, 5, 5, 5, 5, 5, 5, 5, 5,    // there is no hole 0
-                        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5};
+int num_of_strokes[] = {0, 0, 0, 0, 0, 0, 0, 0, 0,    // there is no hole 0
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int current_hole = 0;
 
 /////// Stroke manipulation functions
@@ -37,7 +37,7 @@ static void prev_hole() {
 /////// update window
 static void show_current_hole() {
   static char body_text[50];
-  snprintf(body_text, sizeof(body_text), "   Hole %u  Stroke: %u", current_hole, num_of_strokes[current_hole]);
+  snprintf(body_text, sizeof(body_text), "Hole %u\nStroke: %u", current_hole, num_of_strokes[current_hole]);
   text_layer_set_text(text_layer, body_text);
 }
 static void add_and_show_total() {
@@ -86,11 +86,17 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 }
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
+  if (current_hole == 0) {
+    current_hole = 1;
+  }
   add_stroke();
   show_current_hole();
 }
 
 static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
+  if (current_hole == 0) {
+    current_hole = 1;
+  }
   subtract_stroke();
   show_current_hole();
 }
@@ -101,7 +107,7 @@ static void click_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
   window_single_click_subscribe(BUTTON_ID_UP, up_click_handler);
   window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
-   // long click config:
+   // long click
   window_long_click_subscribe(BUTTON_ID_SELECT, 700, select_long_click_handler, select_long_click_release_handler);
 }
 
@@ -110,8 +116,8 @@ static void window_load(Window *window) {
   GRect bounds = layer_get_bounds(window_layer);
   
   text_layer = text_layer_create(GRect(0, 0, 144, 154));
-  text_layer_set_text(text_layer, "Press Up/Down for Strokes, Select for Next hole");
-	text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+  text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+  text_layer_set_text(text_layer, "More strokes >\n\nNext Hole  ->\n\nLess strokes >");
   text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(text_layer));
 }
