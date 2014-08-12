@@ -1,4 +1,4 @@
-RoundTrack
+StrokeCount
 ==========
 
-Track your golf rounds on the Pebble watch
+Count strokes while playing golf with your Pebble
